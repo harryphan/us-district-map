@@ -1,7 +1,16 @@
 import React,{PureComponent} from 'react';
 import USMapContainer from './USMapContainer';
+import axios from 'axios';
+import {loadStatesBoundaries,loadCountiesBoundaries} from '../actions/actions'
+import {connect} from 'react-redux';
 
-export default class Main extends PureComponent{
+class Main extends PureComponent{
+  componentDidMount(){
+    axios.get('/states-10m.json')
+    .then(res => this.props.loadStatesBoundaries(res.data));
+    axios.get('/counties-10m.json')
+    .then(res => this.props.loadCountiesBoundaries(res.data));
+  }
   render(){
     return(
       <div>
@@ -15,3 +24,24 @@ export default class Main extends PureComponent{
     );
   }
 }
+
+const mapStateToProps = state =>{
+
+  return {
+
+  };
+}
+
+const mapDispatchToProps = dispatch =>{
+  return {
+    loadStatesBoundaries:(statesBoundaries)=>{
+      dispatch(loadStatesBoundaries(statesBoundaries));
+    },
+    loadCountiesBoundaries: (countiesBoundaries) =>{
+      dispatch(loadCountiesBoundaries(countiesBoundaries));
+    }
+  };
+}
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Main);

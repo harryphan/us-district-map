@@ -1,9 +1,9 @@
-import usMap from './usMap'
+import boundaries from './boundaries';
+import mapParams from './mapParams';
 import {combineReducers} from 'redux';
 
 const rootReducer = combineReducers({
-  usMap,
+  boundaries,
+  mapParams,
 })
-
-
 export default rootReducer;

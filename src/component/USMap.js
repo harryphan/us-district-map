@@ -1,91 +1,94 @@
-import React,{useState} from 'react';
+import React from 'react';
 import { ComposableMap, Geographies, Geography,ZoomableGroup } from "react-simple-maps";
-// import { scaleQuantize } from "d3-scale";
 
-export const USMap = () =>{
-  const countiesUrl = "https://cdn.jsdelivr.net/npm/us-atlas@3/counties-10m.json";
-  const statesURL = "https://cdn.jsdelivr.net/npm/us-atlas@3/states-10m.json";
-  const [center,setCenter]  = useState([0,0]);
-  const [zoom,setZoom] = useState(1);
-  const [id,setId] = useState(0);
+
+export const USMap = ({states,counties,center,zoom,focusedStateId,setCenter,setZoom,setFocusedState}) =>{
   function handleStateClick(geo,projection,path){
     const centroid = projection.invert(path.centroid(geo));
     setCenter(centroid);
-    setZoom(5);
-    setId(+geo.id);
+    setZoom(4);
+    setFocusedState(+geo.id);
+  }
+  function handleMove(event,zoomEvent){
+    const {zoom,coordinates} = event
+    if (zoom < 4){
+      setZoom(zoom);
+      setFocusedState(0);
+    }else{
+      console.log(event);
+    }
   }
   return (
-    <ComposableMap projection="geoAlbersUsa">
-      <ZoomableGroup center={center} zoom={zoom}>
-        <Geographies geography={statesURL}>
-          {({ geographies,projection,path }) => (
-            <>
-              {geographies.map(geo => (
-                <Geography
-                  key={geo.rsmKey}
-                  stroke="#000"
-                  geography={geo}
-                  fill="#DDD"
-                  onClick={() => handleStateClick(geo,projection,path)}
-                  style={{
-                     default: {
-                        fill: "#ECEFF1",
-                        stroke: "#607D8B",
-                        strokeWidth: 0.75,
-                        outline: "none",
-                     },
-                     hover: {
-                        fill: "#CFD8DC",
-                        stroke: "#607D8B",
-                        strokeWidth: 1,
-                        outline: "none",
-                     },
-
-                  }}
-                />
-              ))}
-            </>
-          )}
-        </Geographies>
-        { id?
-          <Geographies geography={countiesUrl}>
-            {({ geographies,projection,path }) => {
-              const focused = geographies.filter( geo => { return +geo.id.substring(0,2) === id});
-
-              return(
+      <ComposableMap projection="geoAlbersUsa">
+        <ZoomableGroup center={center} zoom={zoom} onMoveEnd={handleMove}>
+          <Geographies geography={states}>
+            {({ geographies,projection,path }) => (
               <>
-                {
-                  focused.map(geo => {
-                    return (
-                      <Geography
-                        key={geo.rsmKey}
-                        stroke="#000"
-                        geography={geo}
-                        fill="#DDD"
-                        style={{
-                           default: {
-                              fill: "#ECEFF1",
-                              stroke: "#607D8B",
-                              strokeWidth: 0.1,
-                              outline: "none",
-                           },
-                           hover: {
-                              fill: "#CFD8DC",
-                              stroke: "#607D8B",
-                              strokeWidth: 0.2,
-                              outline: "none",
-                           },
-
-                        }}
-                      />
-                    )
-                  })
-                }
+                {geographies.map(geo => (
+                  <Geography
+                    key={geo.rsmKey}
+                    stroke="#000"
+                    geography={geo}
+                    fill="#DDD"
+                    onClick={() => handleStateClick(geo,projection,path)}
+                    style={{
+                       default: {
+                          fill: "#ECEFF1",
+                          stroke: "#607D8B",
+                          strokeWidth: 0.75,
+                          outline: "none",
+                       },
+                       hover: {
+                          fill: "#CFD8DC",
+                          stroke: "#607D8B",
+                          strokeWidth: 1,
+                          outline: "none",
+                       },
+                    }}
+                  />
+                ))}
               </>
-            )}}
-          </Geographies>:<div>test</div>
-        }
-      </ZoomableGroup>
-    </ComposableMap>
+            )}
+          </Geographies>
+          { focusedStateId > 0 ?
+            <Geographies geography={counties}>
+              {({ geographies,projection,path }) => {
+                const focused = geographies.filter( geo => { return +geo.id.substring(0,2) === focusedStateId});
+
+                return(
+                <>
+                  {
+                    focused.map(geo => {
+                      return (
+                        <Geography
+                          key={geo.rsmKey}
+                          stroke="#000"
+                          geography={geo}
+                          fill="#DDD"
+                          style={{
+                             default: {
+                                fill: "#ECEFF1",
+                                stroke: "#607D8B",
+                                strokeWidth: 0.1,
+                                outline: "none",
+                             },
+                             hover: {
+                                fill: "#CFD8DC",
+                                stroke: "#607D8B",
+                                strokeWidth: 0.2,
+                                outline: "none",
+                             },
+
+                          }}
+                        />
+                      )
+                    })
+                  }
+                </>
+              )}}
+            </Geographies>:<div>test</div>
+          }
+        </ZoomableGroup>
+      </ComposableMap>
   );
 }
