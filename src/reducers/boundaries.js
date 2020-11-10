@@ -15,6 +15,8 @@ const boundaries = (state=initialState, action) =>{
       case LOAD_COUNTIES:
         draft.counties=payload;
         break;
+      default:
+        return;
     }
   })
 }

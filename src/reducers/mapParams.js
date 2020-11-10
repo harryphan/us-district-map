@@ -20,8 +20,9 @@ const mapParams = (state=initialState, action) =>{
         draft.focusedStateId = payload;
         break;
       case ZOOM:
-        draft={...payload};
-        break;
+        return {...payload};
+      default:
+        return;
     }
   })
 }

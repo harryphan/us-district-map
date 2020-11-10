@@ -1,4 +1,4 @@
-import {LOAD_STATES,LOAD_COUNTIES,SET_ZOOM,SET_CENTER,SET_FOCUSED_STATE_ID} from '../constants/action_constants';
+import {LOAD_STATES,LOAD_COUNTIES,SET_ZOOM,SET_CENTER,SET_FOCUSED_STATE_ID,ZOOM} from '../constants/action_constants';
 
 export function loadStatesBoundaries(states){
   return {type: LOAD_STATES, payload:states}
