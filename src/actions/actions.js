@@ -15,3 +15,6 @@ export function setCenter(center){
 export function setFocusedState(id){
   return {type: SET_FOCUSED_STATE_ID, payload:id}
 }
+export function doZoom(payload){
+  return {type: ZOOM, payload}
+}

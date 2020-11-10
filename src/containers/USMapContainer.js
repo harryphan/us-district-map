@@ -1,11 +1,10 @@
 import {USMap} from '../component/USMap';
 import {connect} from 'react-redux';
-import {setCenter,setZoom,setFocusedState} from '../actions/actions';
+import {setCenter,setZoom,setFocusedState,doZoom} from '../actions/actions';
 
 const mapStateToProps = state =>{
   const {states,counties} = state.boundaries;
   const {zoom,center,focusedStateId} = state.mapParams;
-  console.log(zoom);
   return {
     states,
     counties,
@@ -25,6 +24,9 @@ const mapDispatchToProps = dispatch =>{
     },
     setFocusedState:(id)=>{
       dispatch(setFocusedState(id));
+    },
+    doZoom(payload){
+      dispatch(doZoom(payload));
     }
   };
 }

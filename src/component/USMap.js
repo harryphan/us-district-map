@@ -4,18 +4,13 @@ import { ComposableMap, Geographies, Geography,ZoomableGroup } from "react-simpl
 
 export const USMap = ({states,counties,center,zoom,focusedStateId,setCenter,setZoom,setFocusedState}) =>{
   function handleStateClick(geo,projection,path){
-    const centroid = projection.invert(path.centroid(geo));
-    setCenter(centroid);
-    setZoom(4);
-    setFocusedState(+geo.id);
+    const center = projection.invert(path.centroid(geo));
+    doZoom({center,zoom:4,focusedStateId:+geo.id})
   }
   function handleMove(event,zoomEvent){
     const {zoom,coordinates} = event
     if (zoom < 4){
-      setZoom(zoom);
       setFocusedState(0);
-    }else{
-      console.log(event);
     }
   }
   return (
