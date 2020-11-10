@@ -1,9 +1,10 @@
 import produce from 'immer';
-import {SET_CENTER,SET_ZOOM,SET_FOCUSED_STATE_ID,ZOOM} from '../constants/action_constants';
+import {SET_CENTER,SET_ZOOM,SET_TOOLTIP,SET_FOCUSED_STATE_ID,ZOOM} from '../constants/action_constants';
 let initialState={
   center:[0,0],
   zoom:1,
   focusedStateId:0,
+  tooltip:'',
 };
 
 const mapParams = (state=initialState, action) =>{
@@ -18,6 +19,9 @@ const mapParams = (state=initialState, action) =>{
         break;
       case SET_FOCUSED_STATE_ID:
         draft.focusedStateId = payload;
+        break;
+      case SET_TOOLTIP:
+        draft.tooltip = payload;
         break;
       case ZOOM:
         return {...payload};

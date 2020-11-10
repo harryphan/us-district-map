@@ -1,6 +1,6 @@
-import {USMap} from '../component/USMap';
+import USMap from '../component/USMap';
 import {connect} from 'react-redux';
-import {setCenter,setZoom,setFocusedState,doZoom} from '../actions/actions';
+import {setCenter,setZoom,setFocusedState,doZoom,setTooltip} from '../actions/actions';
 
 const mapStateToProps = state =>{
   const {states,counties} = state.boundaries;
@@ -10,7 +10,8 @@ const mapStateToProps = state =>{
     counties,
     zoom,
     center,
-    focusedStateId
+    focusedStateId,
+    covidData: state.covidData,
   };
 }
 
@@ -27,6 +28,9 @@ const mapDispatchToProps = dispatch =>{
     },
     doZoom(payload){
       dispatch(doZoom(payload));
+    },
+    setTooltip(payload){
+      dispatch(setTooltip(payload));
     }
   };
 }

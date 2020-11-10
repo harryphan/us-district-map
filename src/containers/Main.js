@@ -1,8 +1,10 @@
 import React,{PureComponent} from 'react';
 import USMapContainer from './USMapContainer';
 import axios from 'axios';
-import {loadStatesBoundaries,loadCountiesBoundaries} from '../actions/actions'
+import {loadStatesBoundaries,loadCountiesBoundaries,loadCovid} from '../actions/actions'
 import {connect} from 'react-redux';
+import ReactTooltip from 'react-tooltip';
+import { csv } from 'd3-fetch';
 
 class Main extends PureComponent{
   componentDidMount(){
@@ -10,8 +12,10 @@ class Main extends PureComponent{
     .then(res => this.props.loadStatesBoundaries(res.data));
     axios.get('/counties-10m.json')
     .then(res => this.props.loadCountiesBoundaries(res.data));
+    csv('/covid.csv').then( covid => this.props.loadCovid(covid));
   }
   render(){
+    const {tooltip}=this.props;
     return(
       <div>
         <div>
@@ -19,6 +23,7 @@ class Main extends PureComponent{
         </div>
         <div>
           <USMapContainer/>
+          <ReactTooltip>{tooltip}</ReactTooltip>
         </div>
       </div>
     );
@@ -28,7 +33,7 @@ class Main extends PureComponent{
 const mapStateToProps = state =>{
 
   return {
-
+    tooltip:state.mapParams.tooltip,
   };
 }
 
@@ -39,6 +44,9 @@ const mapDispatchToProps = dispatch =>{
     },
     loadCountiesBoundaries: (countiesBoundaries) =>{
       dispatch(loadCountiesBoundaries(countiesBoundaries));
+    },
+    loadCovid: (covid) =>{
+      dispatch(loadCovid(covid));
     }
   };
 }
