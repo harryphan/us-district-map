@@ -14,7 +14,8 @@ const USMap = ({states,counties,center,zoom,covidData,focusedStateId,doZoom,setF
     }
   }
   return (
-      <ComposableMap data-tip='' projection="geoAlbersUsa">
+      <ComposableMap data-tip='' projection="geoAlbersUsa" style=
+    {{border:'1px black solid', width:'90%', height:'600px'}}>
         <ZoomableGroup center={center} zoom={zoom} onMoveEnd={handleMove}>
           <Geographies geography={states}>
             {({ geographies,projection,path }) =>

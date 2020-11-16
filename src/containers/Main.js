@@ -19,9 +19,9 @@ class Main extends PureComponent{
     return(
       <div>
         <div>
-          <h1>Test</h1>
+          <h1>US Map</h1>
         </div>
-        <div>
+        <div style={{padding:'5px'}}>
           <USMapContainer/>
           <ReactTooltip>{tooltip}</ReactTooltip>
         </div>

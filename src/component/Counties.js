@@ -1,9 +1,10 @@
 import React,{memo} from 'react';
 import { Geographies, Geography } from "react-simple-maps";
-
+import { scaleLinear } from 'd3-scale';
 
 const Counties = ({counties,covidData,focusedStateId,setTooltip}) =>{
   const filtered = covidData.filter(covid => covid.date === '11/9/2020');
+  const colorScale = scaleLinear().domain([0,500]).range(['white','red']);
   return (
             <Geographies geography={counties}>
               {({ geographies,projection,path }) => {
