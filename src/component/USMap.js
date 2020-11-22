@@ -2,7 +2,7 @@ import React,{memo} from 'react';
 import { ComposableMap, Geographies, Geography,ZoomableGroup } from "react-simple-maps";
 import Counties from './Counties';
 
-const USMap = ({states,counties,center,zoom,covidData,focusedStateId,doZoom,setFocusedState,setTooltip}) =>{
+const USMap = ({statesBoundaries,countiesBoundaries,center,zoom,covidData,focusedStateId,doZoom,setFocusedState,setTooltip}) =>{
   function handleStateClick(geo,projection,path){
     const center = projection.invert(path.centroid(geo));
     doZoom({center,zoom:4,focusedStateId:+geo.id});
@@ -17,7 +17,7 @@ const USMap = ({states,counties,center,zoom,covidData,focusedStateId,doZoom,setF
       <ComposableMap data-tip='' projection="geoAlbersUsa" style=
     {{border:'1px black solid', width:'90%', height:'600px'}}>
         <ZoomableGroup center={center} zoom={zoom} onMoveEnd={handleMove}>
-          <Geographies geography={states}>
+          <Geographies geography={statesBoundaries}>
             {({ geographies,projection,path }) =>
               geographies.map(geo => (
                   <Geography
@@ -52,7 +52,7 @@ const USMap = ({states,counties,center,zoom,covidData,focusedStateId,doZoom,setF
             }
           </Geographies>
           { focusedStateId > 0 ?
-            <Counties counties={counties} covidData={covidData} setTooltip={setTooltip} focusedStateId={focusedStateId}/>:null
+            <Counties counties={countiesBoundaries} covidData={covidData} setTooltip={setTooltip} focusedStateId={focusedStateId}/>:null
           }
         </ZoomableGroup>
       </ComposableMap>

@@ -1,4 +1,5 @@
 import USMap from '../component/USMap';
+import Map from '../component/Map';
 import {connect} from 'react-redux';
 import {setCenter,setZoom,setFocusedState,doZoom,setTooltip} from '../actions/actions';
 
@@ -6,8 +7,8 @@ const mapStateToProps = state =>{
   const {states,counties} = state.boundaries;
   const {zoom,center,focusedStateId} = state.mapParams;
   return {
-    states,
-    counties,
+    statesBoundaries:states,
+    countiesBoundaries:counties,
     zoom,
     center,
     focusedStateId,
@@ -35,4 +36,4 @@ const mapDispatchToProps = dispatch =>{
   };
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(USMap);
+export default connect(mapStateToProps,mapDispatchToProps)(Map);

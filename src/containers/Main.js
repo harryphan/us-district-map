@@ -21,7 +21,7 @@ class Main extends PureComponent{
         <div>
           <h1>US Map</h1>
         </div>
-        <div style={{padding:'5px'}}>
+        <div style={{padding:'5'}}>
           <USMapContainer/>
           <ReactTooltip>{tooltip}</ReactTooltip>
         </div>
