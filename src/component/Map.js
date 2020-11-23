@@ -34,8 +34,8 @@ const Map = ({statesBoundaries,countiesBoundaries,center,covidData,focusedStateI
       .on("click", clicked)
       .attr("d", path);
 
-  states.append("title")
-      .text(d => d.properties.name);
+  // states.append("title")
+  //     .text(d => d.properties.name);
   // const county=d3.select('.county');
   // if(focusedStateId!=0){
   //   county.selectAll('.countyborder').remove();
@@ -91,9 +91,7 @@ const Map = ({statesBoundaries,countiesBoundaries,center,covidData,focusedStateI
       <svg>
         <g className="states">
           <g className="holder"/>
-          { focusedStateId > 0 ?
-            <TestCounties countiesBoundaries={countiesBoundaries} path={path} covidData={covidData} setTooltip={setTooltip} focusedStateId={focusedStateId}/>:null
-          }
+          <TestCounties countiesBoundaries={countiesBoundaries} path={path} covidData={covidData} setTooltip={setTooltip} focusedStateId={focusedStateId}/>
         </g>
       </svg>
       </div>

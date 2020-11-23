@@ -12,7 +12,8 @@ const mapStateToProps = state =>{
     zoom,
     center,
     focusedStateId,
-    covidData: state.covidData,
+    usCovidData: state.covidData.us,
+    covidData: state.covidData.ma,
   };
 }
 
@@ -36,4 +37,4 @@ const mapDispatchToProps = dispatch =>{
   };
 }
 
-export default connect(mapStateToProps,mapDispatchToProps)(Map);
+export default connect(mapStateToProps,mapDispatchToProps)(USMap);
