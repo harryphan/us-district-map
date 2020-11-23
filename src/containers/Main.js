@@ -7,20 +7,14 @@ import ReactTooltip from 'react-tooltip';
 import { csv } from 'd3-fetch';
 
 class Main extends PureComponent{
-  constructor(props){
-    super(props);
-    this.handleDoubleClick = this.handleDoubleClick.bind(this);
-  }
+
   componentDidMount(){
-    axios.get('/states-10m.json')
+    axios.get('./states-10m.json')
     .then(res => this.props.loadStatesBoundaries(res.data));
-    axios.get('/counties-10m.json')
+    axios.get('./counties-10m.json')
     .then(res => this.props.loadCountiesBoundaries(res.data));
-    csv('/covid.csv').then( covid => this.props.loadCovid(covid));
-    csv('/united_states_covid19_cases_and_deaths_by_state.csv').then(covid => this.props.loadUSCovid(covid));
-  }
-  handleDoubleClick(event){
-    console.log('blog')
+    csv('./covid.csv').then( covid => this.props.loadCovid(covid));
+    csv('./united_states_covid19_cases_and_deaths_by_state.csv').then(covid => this.props.loadUSCovid(covid));
   }
   render(){
     const {tooltip}=this.props;
@@ -29,7 +23,7 @@ class Main extends PureComponent{
         <div>
           <h1>US Map</h1>
         </div>
-        <div style={{padding:'5'}} onDoubleClick={this.handleDoubleClick}>
+        <div style={{padding:'5'}}>
           <USMapContainer/>
           <ReactTooltip>{tooltip}</ReactTooltip>
         </div>
