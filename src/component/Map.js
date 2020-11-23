@@ -2,12 +2,13 @@ import React,{memo} from 'react';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import {geoPath,geoAlbersUsa} from 'd3-geo';
+import Counties from './Counties';
+import TestCounties from './TestCounties';
 
 const Map = ({statesBoundaries,countiesBoundaries,center,covidData,focusedStateId,doZoom,setFocusedState,setTooltip}) =>{
   if(statesBoundaries == null){
     return <div>Loading...</div>;
   }
-  console.log(countiesBoundaries);
   const width = 975;
   const height = 610;
   const projection = geoAlbersUsa();
@@ -23,7 +24,7 @@ const Map = ({statesBoundaries,countiesBoundaries,center,covidData,focusedStateI
 
   const g = d3.select('.states');
   const states = d3.select('.holder')
-      .attr("fill", "#444")
+      .attr("fill", "#bbb")
       .attr('stroke-width','1')
       .attr('stroke','white')
       .attr("cursor", "pointer")
@@ -35,23 +36,25 @@ const Map = ({statesBoundaries,countiesBoundaries,center,covidData,focusedStateI
 
   states.append("title")
       .text(d => d.properties.name);
-  if(focusedStateId!=0){
-    const paths = countiesBoundaries.objects.counties.geometries.filter(x => x.id.substring(0,2) == focusedStateId);
-    g.selectAll('.countyborder').remove();
-    g.append("path")
-      .attr('class','countyborder')
-        .attr("fill", "none")
-        .attr("stroke", "white")
-        .attr("stroke-linejoin", "round")
-        .attr("d", path(topojson.mesh(countiesBoundaries, countiesBoundaries.objects.counties, (a, b) => a.id.substring(0,2) ==focusedStateId )));
-  }
+  // const county=d3.select('.county');
+  // if(focusedStateId!=0){
+  //   county.selectAll('.countyborder').remove();
+  //   county.append("path")
+  //     .attr('class','countyborder')
+  //     .datum(topojson.mesh(countiesBoundaries, countiesBoundaries.objects.counties, (a, b) => a.id.substring(0,2) ==focusedStateId ))
+  //     .enter()
+  //     .join("path")
+  //     .attr("fill", "none")
+  //     .attr("stroke", "white")
+  //     .attr("stroke-linejoin", "round")
+  //     .attr("d", path);
+  // }
 
   svg.call(zoom);
 
   function reset() {
     states.transition().style("fill", null);
     setFocusedState(0);
-    g.selectAll('.countyborder').remove();
     svg.transition().duration(750).call(
       zoom.transform,
       d3.zoomIdentity,
@@ -60,12 +63,11 @@ const Map = ({statesBoundaries,countiesBoundaries,center,covidData,focusedStateI
   }
 
   function clicked(event, d) {
+    setFocusedState(d.id);
     const [[x0, y0], [x1, y1]] = path.bounds(d);
     event.stopPropagation();
     states.transition().style("fill", null);
     d3.select(this).transition().style("fill", "red");
-    console.log(d.id);
-    doZoom({center:[0,0],zoom:1,focusedStateId:+d.id});
     svg.transition().duration(750).call(
       zoom.transform,
       d3.zoomIdentity
@@ -89,6 +91,9 @@ const Map = ({statesBoundaries,countiesBoundaries,center,covidData,focusedStateI
       <svg>
         <g className="states">
           <g className="holder"/>
+          { focusedStateId > 0 ?
+            <TestCounties countiesBoundaries={countiesBoundaries} path={path} covidData={covidData} setTooltip={setTooltip} focusedStateId={focusedStateId}/>:null
+          }
         </g>
       </svg>
       </div>
