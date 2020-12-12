@@ -4,6 +4,7 @@ import axios from "axios";
 let initialState={
   states:null,
   counties:null,
+  isLoading:false
 };
 
 const boundaries = (state=initialState, action) =>{
@@ -16,17 +17,21 @@ const boundaries = (state=initialState, action) =>{
       case LOAD_COUNTIES:
         draft.counties=payload;
         break;
+      case 'SET_BOUNDARIES_LOADING':
+        draft.isLoading=payload;
+        break;
       default:
         return;
     }
   })
 }
-export async function fetchStates(dispatch, getState) {
-  const response = await axios.get('states-10m.json')
-  dispatch({ type: LOAD_STATES, payload: response.data })
+export async function fetchBoundaries(dispatch, getState) {
+  dispatch({ type: 'SET_BOUNDARIES_LOADING', payload: true })
+  const states = await axios.get('states-10m.json')
+  dispatch({ type: LOAD_STATES, payload: states.data })
+  const counties = await axios.get('counties-10m.json')
+  dispatch({ type: LOAD_COUNTIES, payload: counties.data })
+  dispatch({ type: 'SET_BOUNDARIES_LOADING', payload: false })
 }
-export async function fetchCounties(dispatch, getState) {
-  const response = await axios.get('counties-10m.json')
-  dispatch({ type: LOAD_COUNTIES, payload: response.data })
-}
+
 export default boundaries;

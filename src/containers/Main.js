@@ -5,15 +5,20 @@ import ReactTooltip from 'react-tooltip';
 
 class Main extends PureComponent{
   render(){
-    const {tooltip}=this.props;
+    const {tooltip,isLoading}=this.props;
+
+    if(isLoading){
+        return 'Loading';
+    }
+
     return(
       <div>
         <div>
           <h1>US Map</h1>
         </div>
         <div style={{padding:'5'}}>
-          <USMapContainer/>
-          <ReactTooltip>{tooltip}</ReactTooltip>
+            <USMapContainer/>
+            <ReactTooltip>{tooltip}</ReactTooltip>
         </div>
       </div>
     );
@@ -24,6 +29,7 @@ const mapStateToProps = state =>{
 
   return {
     tooltip:state.mapParams.tooltip,
+    isLoading:state.boundaries.isLoading || state.covidData.isLoading
   };
 }
 

@@ -5,14 +5,12 @@ import configureStore from './configureStore';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
 import Main from './containers/Main';
-import {fetchCounties, fetchStates} from "./reducers/boundaries";
-import {fetchCovidData, fetchUSCovidData} from "./reducers/covidData";
+import {fetchBoundaries} from "./reducers/boundaries";
+import {fetchCovidData} from "./reducers/covidData";
 
 const store = configureStore();
-store.dispatch(fetchStates);
-store.dispatch(fetchCounties);
+store.dispatch(fetchBoundaries);
 store.dispatch(fetchCovidData);
-store.dispatch(fetchUSCovidData);
 
 ReactDOM.render(
   <React.StrictMode>

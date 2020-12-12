@@ -5,7 +5,8 @@ import axios from 'axios';
 
 let initialState={
   us:[],
-  ma:[]
+  ma:[],
+  isLoading:false
 };
 
 const covidData = (state=initialState, action) =>{
@@ -18,20 +19,26 @@ const covidData = (state=initialState, action) =>{
       case LOAD_US_COVID:
         draft.us=payload;
         break;
+      case 'SET_COVID_LOADING':
+        draft.isLoading=payload;
+        break;
       default:
         return;
     }
   })
 }
 export async function fetchCovidData(dispatch, getState) {
-  const result = await axios.get('covid.csv')
-  const res = csvParse(result.data);
-  dispatch({ type: LOAD_COVID, payload: res })
+  dispatch({type: 'SET_COVID_LOADING', payload:true});
+  const maCovid = await axios.get('covid.csv')
+  const ma = csvParse(maCovid.data);
+  dispatch({ type: LOAD_COVID, payload: ma })
+  const usCovid = await axios.get('us-covid.csv');
+  const us = csvParse(usCovid.data);
+  dispatch({ type: LOAD_US_COVID, payload: us });
+  dispatch({type: 'SET_COVID_LOADING', payload:false});
 }
 export async function fetchUSCovidData(dispatch, getState) {
-  const result = await axios.get('us-covid.csv');
-  const res = csvParse(result.data);
-  dispatch({ type: LOAD_US_COVID, payload: res })
+
 }
 
 export default covidData;
