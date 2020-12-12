@@ -9,13 +9,14 @@ import { csv } from 'd3-fetch';
 class Main extends PureComponent{
 
   componentDidMount(){
-    axios.get('./states-10m.json')
+    axios.get('states-10m.json')
     .then(res => this.props.loadStatesBoundaries(res.data));
-    axios.get('./counties-10m.json')
+    axios.get('counties-10m.json')
     .then(res => this.props.loadCountiesBoundaries(res.data));
-    csv('./covid.csv').then( covid => this.props.loadCovid(covid));
-    csv('./united_states_covid19_cases_and_deaths_by_state.csv').then(covid => this.props.loadUSCovid(covid));
+    csv('covid.csv').then( covid => this.props.loadCovid(covid));
+    csv('united_states_covid19_cases_and_deaths_by_state.csv').then(covid => this.props.loadUSCovid(covid));
   }
+
   render(){
     const {tooltip}=this.props;
     return(

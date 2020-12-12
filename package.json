@@ -2,12 +2,9 @@
   "name": "us-district-map",
   "version": "0.1.0",
   "private": true,
-  "homepage":"http://harryphan.github.io/us-district-map",
+  "homepage": "http://harryphan.github.io/us-district-map",
   "dependencies": {
     "@reduxjs/toolkit": "^1.4.0",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.5.0",
-    "@testing-library/user-event": "^7.2.1",
     "axios": "^0.21.0",
     "d3": "^6.2.0",
     "immer": "^7.0.9",
@@ -15,7 +12,6 @@
     "react-dom": "^16.14.0",
     "react-motion": "^0.5.2",
     "react-redux": "^7.2.2",
-    "react-scripts": "4.0.0",
     "react-simple-maps": "^2.3.0",
     "react-tooltip": "^4.2.10",
     "topojson-client": "^3.1.0"
@@ -44,6 +40,10 @@
     ]
   },
   "devDependencies": {
-    "gh-pages": "^3.1.0"
+    "gh-pages": "^3.1.0",
+    "react-scripts": "latest",
+    "@testing-library/jest-dom": "^4.2.4",
+    "@testing-library/react": "^9.5.0",
+    "@testing-library/user-event": "^7.2.1"
   }
 }
