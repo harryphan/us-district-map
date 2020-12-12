@@ -16,6 +16,9 @@ class Main extends PureComponent{
         <div>
           <h1>US Map</h1>
         </div>
+        <div>
+            Source code: <a href="https://github.com/harryphan/us-district-map">Github</a>
+        </div>
         <div style={{padding:'5'}}>
             <USMapContainer/>
             <ReactTooltip>{tooltip}</ReactTooltip>
@@ -26,7 +29,6 @@ class Main extends PureComponent{
 }
 
 const mapStateToProps = state =>{
-
   return {
     tooltip:state.mapParams.tooltip,
     isLoading:state.boundaries.isLoading || state.covidData.isLoading
