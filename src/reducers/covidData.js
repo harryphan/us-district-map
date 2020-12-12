@@ -29,7 +29,7 @@ export async function fetchCovidData(dispatch, getState) {
   dispatch({ type: LOAD_COVID, payload: res })
 }
 export async function fetchUSCovidData(dispatch, getState) {
-  const result = await axios.get('united_states_covid19_cases_and_deaths_by_state.csv');
+  const result = await axios.get('us-covid.csv');
   const res = csvParse(result.data);
   dispatch({ type: LOAD_US_COVID, payload: res })
 }
