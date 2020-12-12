@@ -20,7 +20,9 @@ const USMap = ({statesBoundaries,countiesBoundaries,center,zoom,usCovidData,covi
       <ComposableMap data-tip='' projection="geoAlbersUsa" style=
     {{border:'1px black solid', width:'90%', height:'600px'}}>
         <ZoomableGroup center={center} zoom={zoom} onMoveEnd={handleMove}>
-          <Geographies geography={statesBoundaries}>
+          <Geographies
+              geography={statesBoundaries}
+          >
             {({ geographies,projection,path }) =>{
               const sorted = [...usCovidData].sort((a,b) => a.Cases_in_Last_7_Days - b.Cases_in_Last_7_Days);
               const colorScale = scaleLinear().domain([0,sorted[sorted.length-1].Cases_in_Last_7_Days]).range(['white','red']);
