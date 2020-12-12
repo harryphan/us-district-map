@@ -2,7 +2,6 @@ import React,{memo} from 'react';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 import {geoPath,geoAlbersUsa} from 'd3-geo';
-import Counties from './Counties';
 import TestCounties from './TestCounties';
 
 const Map = ({statesBoundaries,countiesBoundaries,center,covidData,focusedStateId,doZoom,setFocusedState,setTooltip}) =>{

@@ -16,12 +16,6 @@ const USMap = ({statesBoundaries,countiesBoundaries,center,zoom,usCovidData,covi
       doZoom({center:event.coordinates,zoom,focusedStateId});
     }
   }
-  // if(usCovidData.length === 0){
-  //   return (<div/>)
-  // }
-  // const sorted = [...usCovidData].sort((a,b) => a.Cases_in_Last_7_Days - b.Cases_in_Last_7_Days);
-  // const colorScale = scaleLinear().domain([0,sorted[sorted.length-1].Cases_in_Last_7_Days]).range(['white','red']);
-
   return (
       <ComposableMap data-tip='' projection="geoAlbersUsa" style=
     {{border:'1px black solid', width:'90%', height:'600px'}}>

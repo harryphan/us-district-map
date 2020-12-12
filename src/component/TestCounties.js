@@ -1,5 +1,4 @@
 import React,{memo} from 'react';
-import { scaleLinear } from 'd3-scale';
 import * as d3 from 'd3';
 import * as topojson from 'topojson-client';
 
@@ -7,11 +6,11 @@ import * as topojson from 'topojson-client';
 const TestCounties = ({countiesBoundaries,path,covidData,focusedStateId,setTooltip}) =>{
   const county=d3.select('.county');
   county.selectAll('.countyborder').remove();
-  var div = d3.select('body').append("div")
+  let div = d3.select('body').append("div")
      .attr("class", "tooltip-donut")
      .style("opacity", 0).style('position','absolute');
   if(focusedStateId !== 0){
-    const div=county.append("div")
+    div=county.append("div")
      .attr("class", "tooltip")
      .style("opacity", 0);
     county.selectAll('.countyborder').remove();
@@ -38,4 +37,4 @@ const TestCounties = ({countiesBoundaries,path,covidData,focusedStateId,setToolt
     <g className="county"/>
   );
 }
-export default TestCounties;
+export default memo(TestCounties);

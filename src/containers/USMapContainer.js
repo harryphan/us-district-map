@@ -1,5 +1,4 @@
 import USMap from '../component/USMap';
-import Map from '../component/Map';
 import {connect} from 'react-redux';
 import {setCenter,setZoom,setFocusedState,doZoom,setTooltip} from '../actions/actions';
 
