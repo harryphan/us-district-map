@@ -24,7 +24,6 @@ const Counties = ({counties,covidData,gaVotingData,focusedStateId,setTooltip}) =
                       if(voterData){
                         total=voterData.trump+voterData.biden+voterData.jorgensen;
                       }
-                      console.log(voteOpScale(total));
                       return (
                         <Geography
                           key={geo.rsmKey}

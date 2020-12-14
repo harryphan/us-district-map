@@ -35,7 +35,8 @@ const USMap = ({statesBoundaries,countiesBoundaries,center,zoom,usCovidData,covi
                     key={geo.rsmKey}
                     stroke="#000"
                     geography={geo}
-                    fill={item ? colorScale(item.Cases_in_Last_7_Days) :"#DDD"}
+                    //fill={item ? colorScale(item.Cases_in_Last_7_Days) :"#DDD"}
+                    fill={"#DDD"}
                     onMouseEnter={() => {
                       const { name } = geo.properties;
                       setTooltip(<div><div>{name}</div><div>{item.Cases_in_Last_7_Days}</div></div>);
