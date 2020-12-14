@@ -1,9 +1,12 @@
 import produce from 'immer';
 import {SET_CENTER,SET_ZOOM,SET_TOOLTIP,SET_FOCUSED_STATE_ID,ZOOM} from '../constants/action_constants';
 let initialState={
-  center:[0,0],
-  zoom:1,
-  focusedStateId:0,
+  // center:[0,0],
+  // zoom:1,
+  // focusedStateId:0,
+  center:[-83.43523233606125, 32.63933616159129],
+  zoom:4,
+  focusedStateId:13,
   tooltip:'',
 };
 

@@ -27,6 +27,7 @@ const covidData = (state=initialState, action) =>{
     }
   })
 }
+
 export async function fetchCovidData(dispatch, getState) {
   dispatch({type: 'SET_COVID_LOADING', payload:true});
   const maCovid = await axios.get('covid.csv')
@@ -36,9 +37,6 @@ export async function fetchCovidData(dispatch, getState) {
   const us = csvParse(usCovid.data);
   dispatch({ type: LOAD_US_COVID, payload: us });
   dispatch({type: 'SET_COVID_LOADING', payload:false});
-}
-export async function fetchUSCovidData(dispatch, getState) {
-
 }
 
 export default covidData;

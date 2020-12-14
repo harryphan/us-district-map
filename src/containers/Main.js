@@ -18,6 +18,7 @@ class Main extends PureComponent{
         </div>
         <div>
             Source code: <a href="https://github.com/harryphan/us-district-map">Github</a>
+            Data source: <a href="https://results.enr.clarityelections.com/GA/105369/web.264614/#/access-to-races">Georgia Sec of State</a>
         </div>
         <div style={{padding:'5'}}>
             <USMapContainer/>
@@ -31,7 +32,7 @@ class Main extends PureComponent{
 const mapStateToProps = state =>{
   return {
     tooltip:state.mapParams.tooltip,
-    isLoading:state.boundaries.isLoading || state.covidData.isLoading
+    isLoading:state.boundaries.isLoading || state.covidData.isLoading || state.votingData.isLoading
   };
 }
 

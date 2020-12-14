@@ -3,7 +3,7 @@ import { ComposableMap, Geographies, Geography,ZoomableGroup } from "react-simpl
 import Counties from './Counties';
 import { scaleLinear } from 'd3-scale';
 
-const USMap = ({statesBoundaries,countiesBoundaries,center,zoom,usCovidData,covidData,focusedStateId,doZoom,setFocusedState,setTooltip}) =>{
+const USMap = ({statesBoundaries,countiesBoundaries,center,zoom,usCovidData,covidData,gaVotingData,focusedStateId,doZoom,setFocusedState,setTooltip}) =>{
   function handleStateClick(geo,projection,path){
     const center = projection.invert(path.centroid(geo));
     doZoom({center,zoom:zoom>4?zoom:4,focusedStateId:+geo.id});
@@ -63,7 +63,7 @@ const USMap = ({statesBoundaries,countiesBoundaries,center,zoom,usCovidData,covi
           }
           </Geographies>
           { focusedStateId > 0 ?
-            <Counties counties={countiesBoundaries} covidData={covidData} setTooltip={setTooltip} focusedStateId={focusedStateId}/>:null
+            <Counties counties={countiesBoundaries} covidData={covidData} gaVotingData={gaVotingData} setTooltip={setTooltip} focusedStateId={focusedStateId}/>:null
           }
         </ZoomableGroup>
       </ComposableMap>

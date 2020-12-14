@@ -7,10 +7,12 @@ import * as serviceWorker from './serviceWorker';
 import Main from './containers/Main';
 import {fetchBoundaries} from "./reducers/boundaries";
 import {fetchCovidData} from "./reducers/covidData";
+import {fetchVotingData} from "./reducers/votingData";
 
 const store = configureStore();
 store.dispatch(fetchBoundaries);
 store.dispatch(fetchCovidData);
+store.dispatch(fetchVotingData);
 
 ReactDOM.render(
   <React.StrictMode>

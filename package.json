@@ -14,7 +14,8 @@
     "react-simple-maps": "^2.3.0",
     "react-tooltip": "^4.2.10",
     "redux-axios-middleware": "^4.0.1",
-    "topojson-client": "^3.1.0"
+    "topojson-client": "^3.1.0",
+    "xml2js": "^0.4.23"
   },
   "scripts": {
     "predeploy": "npm run build",

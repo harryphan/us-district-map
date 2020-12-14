@@ -11,6 +11,7 @@ const mapStateToProps = state =>{
     zoom,
     center,
     focusedStateId,
+    gaVotingData: state.votingData.ga,
     usCovidData: state.covidData.us,
     covidData: state.covidData.ma,
   };
