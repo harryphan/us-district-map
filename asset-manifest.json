@@ -1,20 +1,20 @@
 {
   "files": {
     "main.css": "/us-district-map/static/css/main.2ae47eeb.chunk.css",
-    "main.js": "/us-district-map/static/js/main.0e0df2ff.chunk.js",
-    "main.js.map": "/us-district-map/static/js/main.0e0df2ff.chunk.js.map",
+    "main.js": "/us-district-map/static/js/main.550734de.chunk.js",
+    "main.js.map": "/us-district-map/static/js/main.550734de.chunk.js.map",
     "runtime-main.js": "/us-district-map/static/js/runtime-main.e069f46c.js",
     "runtime-main.js.map": "/us-district-map/static/js/runtime-main.e069f46c.js.map",
-    "static/js/2.d1df34e0.chunk.js": "/us-district-map/static/js/2.d1df34e0.chunk.js",
-    "static/js/2.d1df34e0.chunk.js.map": "/us-district-map/static/js/2.d1df34e0.chunk.js.map",
+    "static/js/2.545df12d.chunk.js": "/us-district-map/static/js/2.545df12d.chunk.js",
+    "static/js/2.545df12d.chunk.js.map": "/us-district-map/static/js/2.545df12d.chunk.js.map",
     "index.html": "/us-district-map/index.html",
     "static/css/main.2ae47eeb.chunk.css.map": "/us-district-map/static/css/main.2ae47eeb.chunk.css.map",
-    "static/js/2.d1df34e0.chunk.js.LICENSE.txt": "/us-district-map/static/js/2.d1df34e0.chunk.js.LICENSE.txt"
+    "static/js/2.545df12d.chunk.js.LICENSE.txt": "/us-district-map/static/js/2.545df12d.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.e069f46c.js",
-    "static/js/2.d1df34e0.chunk.js",
+    "static/js/2.545df12d.chunk.js",
     "static/css/main.2ae47eeb.chunk.css",
-    "static/js/main.0e0df2ff.chunk.js"
+    "static/js/main.550734de.chunk.js"
   ]
 }
