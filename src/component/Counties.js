@@ -7,7 +7,7 @@ import counties from '../data/counties-10m.json';
 const Counties = ({stateVotingData, gaVotingData, focusedStateId, setTooltip}) => {
     const countyVotingData = stateVotingData.counties
     let sorted = [...countyVotingData].sort((a, b) => a.totalVotes - b.totalVotes);
-    const voteOpScale = scaleLog().domain([sorted[0].totalVotes, sorted[sorted.length - 1].totalVotes]).range([0, 1]);
+    const voteOpScale = scaleLinear().domain([sorted[0].totalVotes, sorted[sorted.length - 1].totalVotes]).range([0, 1]);
     return (
         <Geographies geography={counties}>
             {({geographies, projection, path}) => {

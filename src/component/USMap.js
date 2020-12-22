@@ -5,7 +5,7 @@ import { geoCentroid } from 'd3-geo';
 import allStates from '../data/allstates.json';
 import statesBoundaries from '../data/states-10m.json';
 
-import { scaleLog } from 'd3-scale';
+import { scaleLog,scaleLinear } from 'd3-scale';
 import * as d3 from 'd3';
 
 const USMap = ({center,zoom,usCovidData,isLoadingCounties,covidData,fetchStateVotingData,gaVotingData,nationalVotingData,focusedStateId,doZoom,setFocusedState,setTooltip}) =>{
@@ -37,7 +37,7 @@ const USMap = ({center,zoom,usCovidData,isLoadingCounties,covidData,fetchStateVo
   let sorted=[...nationalVotingData].sort( (a,b) =>
       a.totalVotes - b.totalVotes
   );
-  const voteOpScale = scaleLog().domain([sorted[0].totalVotes,sorted[sorted.length-2].totalVotes]).range([0,1]);
+  const voteOpScale = scaleLinear().domain([sorted[0].totalVotes,sorted[sorted.length-2].totalVotes]).range([0,1]);
   return (
       <ComposableMap data-tip='' projection="geoAlbersUsa" style=
     {{border:'1px black solid', width:'90%', height:'600px'}}>
