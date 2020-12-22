@@ -2,9 +2,6 @@ import React, {memo} from 'react';
 import { Geographies, Geography} from 'react-simple-maps';
 import statesBoundaries from '../data/states-10m.json';
 import allStates from '../data/allstates.json';
-import * as d3 from 'd3';
-import { scaleLinear } from 'd3-scale';
-import CNNVotingDataContext from "./CNNVotingDataContext";
 
 const VotingLayer = ({votingDataContext,focusedStateId, handleStateClick,zoom,setTooltip}) => {
 

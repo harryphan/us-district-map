@@ -1,15 +1,36 @@
 import React,{memo} from 'react';
-import { ComposableMap, Geographies, Geography, ZoomableGroup} from 'react-simple-maps';
+import {ComposableMap, Geographies, Geography, Marker, ZoomableGroup} from 'react-simple-maps';
 import Counties from './Counties';
 import statesBoundaries from '../data/states-10m.json';
 import VotingLayer from './VotingLayer';
-import Labels from "./Labels";
-import counties from "../data/counties-10m.json";
-import CNNVotingDataContext from "./CNNVotingDataContext";
-import VotingCountiesLayer from "./VotingCountiesLayer";
+import Labels from './Labels';
+import counties from '../data/counties-10m.json';
+import CNNVotingDataContext from './CNNVotingDataContext';
+import VotingCountiesLayer from './VotingCountiesLayer';
+import Cities from "./Cities";
+import cities from "../data/cities.json";
 
 const USMap = ({center,zoom,handleStateClick,handleMove,isLoadingCounties,nationalVotingData,focusedStateId,setTooltip}) =>{
     const votingDataContext= new CNNVotingDataContext(nationalVotingData);
+    const stuff=[
+        {
+            "city": "New York",
+            "growth_from_2000_to_2013": "4.8%",
+            "latitude": 40.7127837,
+            "longitude": -74.0059413,
+            "population": "8405837",
+            "rank": "1",
+            "state": "New York"
+        },
+        {
+            "city": "Los Angeles",
+            "growth_from_2000_to_2013": "4.8%",
+            "latitude": 34.0522342,
+            "longitude": -118.2436849,
+            "population": "3884307",
+            "rank": "2",
+            "state": "California"
+        }];
   return (
       <ComposableMap data-tip='' projection="geoAlbersUsa" style={{border:'1px black solid', width:'90%', height:'600px'}}>
         <ZoomableGroup center={center} zoom={zoom} onMoveEnd={(event,zoomEvent)=>handleMove(event,focusedStateId)}>
@@ -50,7 +71,8 @@ const USMap = ({center,zoom,handleStateClick,handleMove,isLoadingCounties,nation
           }
           </Geographies>
           <VotingLayer votingDataContext={votingDataContext} focusedStateId={focusedStateId} setTooltip={setTooltip} handleStateClick={handleStateClick} zoom={zoom}/>
-          <Labels />
+          {/*<Labels />*/}
+
           { +focusedStateId > 0 && !isLoadingCounties ?
               <Geographies geography={counties}>
                   {
@@ -72,6 +94,7 @@ const USMap = ({center,zoom,handleStateClick,handleMove,isLoadingCounties,nation
               </Geographies>
             : null
           }
+          <Cities zoom={zoom} />
         </ZoomableGroup>
       </ComposableMap>
   );
