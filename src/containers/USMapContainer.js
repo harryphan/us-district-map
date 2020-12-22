@@ -17,25 +17,25 @@ const mapStateToProps = state =>{
   };
 }
 
-const mapDispatchToProps = dispatch =>{
+const mapDispatchToProps = (dispatch) =>{
   return {
     setCenter:(center)=>{
       dispatch(setCenter(center));
     },
-    setZoom:(zoom)=>{
-      dispatch(setZoom(zoom));
-    },
     setFocusedState:(id)=>{
       dispatch(setFocusedState(id));
-    },
-    doZoom(payload){
-      dispatch(doZoom(payload));
     },
     setTooltip(payload){
       dispatch(setTooltip(payload));
     },
-    fetchStateVotingData(stateAbbr){
+    handleMove(event,focusedStateId){
+      const {zoom,coordinates} = event;
+      dispatch(doZoom({center:coordinates,zoom,focusedStateId : zoom < 4 ? '0' : focusedStateId}));
+    },
+    handleStateClick(geo,projection,path,stateAbbr,zoom){
+      const center = projection.invert(path.centroid(geo));
       dispatch(fetchStateVotingData(stateAbbr));
+      dispatch(doZoom({center,zoom:zoom>4?zoom:4,focusedStateId:geo.id}));
     }
   };
 }
