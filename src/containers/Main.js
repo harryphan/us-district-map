@@ -32,7 +32,7 @@ class Main extends PureComponent{
 const mapStateToProps = state =>{
   return {
     tooltip:state.mapParams.tooltip,
-    isLoading:state.boundaries.isLoading || state.covidData.isLoading || state.votingData.isLoading
+    isLoading:state.votingData.isLoading
   };
 }
 
