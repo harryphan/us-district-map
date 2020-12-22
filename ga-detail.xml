@@ -7,7 +7,7 @@
     <ElectionDate>11/3/2020</ElectionDate>
     <Region>GA</Region>
     <ElectionVoterTurnout>
-        <Counties>
+        <County>
             <County name="Appling" precinctsParticipating="9" precinctsReported="9" precinctsReportingPercent="100.00" />
             <County name="Atkinson" precinctsParticipating="4" precinctsReported="4" precinctsReportingPercent="100.00" />
             <County name="Bacon" precinctsParticipating="1" precinctsReported="1" precinctsReportingPercent="100.00" />
@@ -167,7 +167,7 @@
             <County name="Wilkes" precinctsParticipating="7" precinctsReported="7" precinctsReportingPercent="100.00" />
             <County name="Wilkinson" precinctsParticipating="9" precinctsReported="9" precinctsReportingPercent="100.00" />
             <County name="Worth" precinctsParticipating="15" precinctsReported="15" precinctsReportingPercent="100.00" />
-        </Counties>
+        </County>
     </ElectionVoterTurnout>
     <Contest key="5000" text="President of the United States" voteFor="1" isQuestion="false" countiesParticipating="159" countiesReported="159" precinctsParticipating="2656" precinctsReported="2656" precinctsReportingPercent="100.00">
         <ParticipatingCounties>
