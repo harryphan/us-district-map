@@ -4,21 +4,23 @@ import './index.css';
 import configureStore from './configureStore';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './serviceWorker';
-import Main from './containers/Main';
-import {fetchBoundaries} from "./reducers/boundaries";
-import {fetchCovidData} from "./reducers/covidData";
-import {fetchGAVotingData, fetchNationalVotingData} from "./reducers/votingData";
+import Main from './containers/MainContainer';
+import { fetchNationalVotingData} from "./reducers/votingData";
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './theme';
+import {CssBaseline} from "@material-ui/core";
 
 const store = configureStore();
-//store.dispatch(fetchCovidData);
 store.dispatch(fetchNationalVotingData);
-//store.dispatch(fetchStateLabelsData);
-
 
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <Main />
+        <ThemeProvider theme={theme}>
+            {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
+            <CssBaseline />
+            <Main />
+        </ThemeProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

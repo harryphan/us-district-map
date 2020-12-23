@@ -1,12 +1,13 @@
 import React from 'react';
 import * as d3 from 'd3';
-import { scaleLinear } from 'd3-scale';
+import { scaleLinear,scaleLog,scaleRadial } from 'd3-scale';
 
 export default class CNNVotingDataContext {
     constructor(nationalVotingData) {
         this._nationalVotingData = nationalVotingData;
         let sorted=[...nationalVotingData].sort( (a,b) => a.totalVotes - b.totalVotes);
         this.voteOpScale = scaleLinear().domain([sorted[0].totalVotes,sorted[sorted.length-2].totalVotes]).range([0,1]);
+        this.tmpOpScale = scaleLog().domain([10000,4000000]).range([0,1]);
         this._currentState={};
         this._bidenResult ={};
         this._trumpResult={}
@@ -15,6 +16,9 @@ export default class CNNVotingDataContext {
     }
     selectCurrentStateById(id){
         this._currentState=this._nationalVotingData.find( s => s.id === id);
+        if(!this._currentState){
+            return undefined;
+        }
         this._bidenResult = this._currentState? this._currentState.candidates.find( c => c.id === 1036  ): {};
         this._trumpResult = this._currentState? this._currentState.candidates.find( c => c.id !== 1036  ): {};
         this._total =this._bidenResult.votes+this._trumpResult.votes
@@ -26,6 +30,9 @@ export default class CNNVotingDataContext {
         return this._currentState;
     }
     selectCurrentCountyById(id){
+        if(!this._currentState.counties){
+            return undefined;
+        }
         this._currentCounty=this._currentState.counties.find( county => county.id === id);
         this._bidenCountyResult = this._currentCounty ?this._currentCounty.candidates.find( c => c.id === 1036  ): {}
         this._trumpCountyResult = this._currentCounty? this._currentCounty.candidates.find( c => c.id !== 1036  ): {};
@@ -45,14 +52,14 @@ export default class CNNVotingDataContext {
         return this._currentCounty?(
             <>
                 <div>County: {name}</div>
-                <div>Total Votes: {this._currentCounty.totalVotes}</div>
-                <div>Joe Biden: {this._bidenCountyResult.votes}</div>
-                <div>Donald Trump: {this._trumpCountyResult.votes}</div>
+                <div>Total Votes: {this._currentCounty.totalVotes.toLocaleString()}</div>
+                <div>Joe Biden: {this._bidenCountyResult.votes.toLocaleString()}</div>
+                <div>Donald Trump: {this._trumpCountyResult.votes.toLocaleString()}</div>
             </>
         ):null;
     }
     getCountyColor(){
-        const countyColor= this._currentCounty ? d3.color(this._countyVoteRatio>=.5? '#00F':'#F00').copy({opacity:this.voteCountyOpScale(this._countyTotal)}):"#DDD";
+        const countyColor= this._currentCounty ? d3.color(this._countyVoteRatio>=.5? '#00F':'#F00').copy({opacity:this.tmpOpScale(this._countyTotal)}):"#DDD";
         return countyColor;
     }
     getStateColor(id,focusedStateId){

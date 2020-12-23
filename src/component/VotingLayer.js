@@ -4,14 +4,12 @@ import statesBoundaries from '../data/states-10m.json';
 import allStates from '../data/allstates.json';
 
 const VotingLayer = ({votingDataContext,focusedStateId, handleStateClick,zoom,setTooltip}) => {
-
-
     return (
         <Geographies geography={statesBoundaries}>
             {
                 ({ geographies,projection,path }) =>{
                     const usMap=geographies.map(geo => {
-                        const stateAbbr = allStates.find(s => s.val === geo.id).id;
+                        const stateAbbr = allStates.find(s => s.val === geo.id);
                         votingDataContext.selectCurrentStateById(geo.id);
                         const stateColor = votingDataContext.getStateColor(focusedStateId);
                         const tooltip= votingDataContext.getTooltip(geo.properties.name);
@@ -26,7 +24,7 @@ const VotingLayer = ({votingDataContext,focusedStateId, handleStateClick,zoom,se
                                 onMouseLeave={() => {
                                     setTooltip('');
                                 }}
-                                onClick={() => handleStateClick(geo, projection, path,stateAbbr,zoom)}
+                                onClick={() => handleStateClick(geo, projection, path,stateAbbr.id,zoom)}
                                 style={{
                                     default: {
                                         stroke: "#000",

@@ -7,3 +7,4 @@ export const SET_CENTER='SET_CENTER';
 export const SET_FOCUSED_STATE_ID='SET_FOCUSED_STATE_ID';
 export const ZOOM='ZOOM';
 export const SET_TOOLTIP='SET_TOOLTIP';
+export const SET_MAPVIEW='SET_MAPVIEW';

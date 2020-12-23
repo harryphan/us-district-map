@@ -1,7 +1,8 @@
 import produce from 'immer';
 import axios from 'axios';
 import xml2js from 'xml2js';
-import {createAsyncThunk} from '@reduxjs/toolkit';
+import allStates from '../data/allstates.json';
+import countyLoader from '../utils/countyLoader';
 
 let initialState={
     us:[],
@@ -41,13 +42,47 @@ const votingData = (state=initialState, action) =>{
         }
     })
 }
+
+export async function applyMissingCounties(dispatch,getState){
+    dispatch({type: 'SET_COUNTIES_VOTING_LOADING', payload:true});
+    const key={
+        AK:{biden:'7073',trump:'6638'},
+        ME:{biden:'30791',trump:'29633'},
+        NH:{biden:'49452',trump:'49453'},
+        VT:{biden:'53668',trump:'53669'},
+        MA:{biden:'35087',trump:'35088'},
+        CT:{biden:'21813',trump:'21816'},
+        RI:{biden:'46718',trump:'46719'},
+    };
+    const newEngland=[countyLoader.ME,countyLoader.NH,countyLoader.VT,countyLoader.MA,countyLoader.CT,countyLoader.RI];
+    newEngland.forEach( s =>{
+        const id = s.races[0].stateFips;
+        const stateAbbr= allStates.find(s => s.val === id).id;
+        let counties=[]
+        s.races.map(({countyFips,candidates})=>{
+            const biden= candidates.find(({candidateID}) => candidateID === key[stateAbbr].biden);
+            const trump = candidates.find(({candidateID}) => candidateID === key[stateAbbr].trump);
+            const cs=[{id:1036,votes:biden.vote},{id:8639,votes:trump.vote}];
+            counties.push({id: countyFips, totalVotes:biden.vote+trump.vote,candidates:cs});
+        });
+        dispatch({type: 'SET_COUNTY_VOTING_DATA',payload:{stateAbbr,counties:counties}});
+    });
+    const filtered=allStates.filter(n => !['ME','VT','NH','MA','CT','RI'].includes(n.id))
+    filtered.forEach( st =>{
+        dispatch({type: 'SET_COUNTY_VOTING_DATA',payload:{stateAbbr:st.id,counties:countyLoader[st.id]}});
+    });
+    dispatch({type: 'SET_COUNTIES_VOTING_LOADING', payload:false});
+}
 export async function fetchNationalVotingData(dispatch,getState){
     dispatch({type: 'SET_VOTING_LOADING', payload:true});
     const nationalResults = await axios.get('https://politics-elex-results.data.api.cnn.io/results/view/2020-national-races-PG.json');
     nationalResults.data.forEach( stateResult =>{
         const result = { id: stateResult.stateFipsCode,state:stateResult.stateAbbreviation,totalVotes:stateResult.totalVote,candidates:stateResult.candidates.map( candidate => {return {id: candidate.candidateId,name: candidate.fullName, votes: candidate.voteNum}})}
+        let counties=[];
+
         dispatch({type: 'SET_STATE_LEVEL_RESULTS',payload: result});
     });
+    dispatch(applyMissingCounties);
     dispatch({type: 'SET_VOTING_LOADING', payload:false});
 }
 
@@ -63,6 +98,21 @@ export function fetchStateVotingData(stateAbbr){
         dispatch({type: 'SET_COUNTY_VOTING_DATA',payload:{stateAbbr,counties:results}});
         dispatch({type: 'SET_COUNTIES_VOTING_LOADING', payload:false});
     }
+}
+export async function fetchAllVotingData(dispatch,getState){
+    dispatch({type: 'SET_COUNTIES_VOTING_LOADING', payload:true});
+    const stuff=['ME','NH','VT','MA','CT','RI'];
+    const filtered=allStates.filter(n => !stuff.includes(n.id))
+    for(const st of filtered){
+        const url = `https://politics-elex-results.data.api.cnn.io/results/view/2020-county-races-PG-${st.id}.json`
+        const counties = await axios.get(url);
+        const results= counties.data.map(county => {
+            const totalVotes=county.candidates.reduce((acc,current) => current.voteNum + acc,0);
+            return {name:county.countyName,id:county.countyFipsCode,totalVotes:totalVotes,candidates:county.candidates.map( candidate => {return {id: candidate.candidateId,name: candidate.fullName, votes: candidate.voteNum}})}
+        })
+        dispatch({type: 'SET_COUNTY_VOTING_DATA',payload:{stateAbbr:st.id,counties:results}});
+    }
+    dispatch({type: 'SET_COUNTIES_VOTING_LOADING', payload:false});
 }
 
 export async function fetchGAVotingData(dispatch, getState) {

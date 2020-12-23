@@ -1,6 +1,6 @@
 import produce from 'immer';
 import {SET_CENTER,SET_ZOOM,SET_TOOLTIP,SET_FOCUSED_STATE_ID,ZOOM} from '../constants/action_constants';
-let initialState={
+const initialState={
   center:[0,0],
   zoom:1,
   focusedStateId:0,
