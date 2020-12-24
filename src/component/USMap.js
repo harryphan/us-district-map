@@ -6,16 +6,17 @@ import VotingLayer from './VotingLayer';
 import Labels from './Labels';
 import counties from '../data/counties-10m.json';
 import CNNVotingDataContext from './CNNVotingDataContext';
-import VotingCountiesLayer from './VotingCountiesLayer';
 import Cities from "./Cities";
 import cities from "../data/cities.json";
 import AllCounties from "./AllCounties";
 import mapview_constants from "../constants/mapview_constants";
+import CovidCountiesLayer from "./CDCCovidCountiesLayer";
+import CNNCovidCountiesLayer from "./CNNCovidCountiesLayer";
 
 
-const {BASIC,ELECTION_RESULTS_COUNTY} = mapview_constants;
+const {BASIC,ELECTION_RESULTS_COUNTY,COVID} = mapview_constants;
 
-const USMap = ({center,mapView,zoom,handleStateClick,handleMove,isLoadingCounties,nationalVotingData,focusedStateId,setTooltip}) =>{
+const USMap = ({center,usCovidData,mapView,zoom,handleStateClick,handleMove,isLoadingCounties,nationalVotingData,focusedStateId,setTooltip}) =>{
     const votingDataContext= new CNNVotingDataContext(nationalVotingData);
   return (
       <ComposableMap  data-tip='' projection="geoAlbersUsa"  style={{border:'1px black solid',height:'100%', width:'100%'}}>
@@ -57,11 +58,11 @@ const USMap = ({center,mapView,zoom,handleStateClick,handleMove,isLoadingCountie
             }
           }
           </Geographies>
-            {mapView === ELECTION_RESULTS_COUNTY?<AllCounties setTooltip={setTooltip} votingDataContext={votingDataContext}/>:null}
+            {mapView === COVID? <CNNCovidCountiesLayer counties={counties} setTooltip={setTooltip} usCovidData={usCovidData}/>:null}
+            {mapView === ELECTION_RESULTS_COUNTY?<AllCounties counties={counties} setTooltip={setTooltip} votingDataContext={votingDataContext}/>:null}
           {/*<VotingLayer votingDataContext={votingDataContext} focusedStateId={focusedStateId} setTooltip={setTooltip} handleStateClick={handleStateClick} zoom={zoom}/>*/}
           {/*<Labels />*/}
-
-          { mapView === BASIC && +focusedStateId > 0 && !isLoadingCounties ?
+            { mapView === BASIC && +focusedStateId > 0 && !isLoadingCounties ?
               <Geographies geography={counties}>
                   {
                       ({geographies, projection, path}) => {

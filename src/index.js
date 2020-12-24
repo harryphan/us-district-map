@@ -9,9 +9,11 @@ import { fetchNationalVotingData} from "./reducers/votingData";
 import { ThemeProvider } from '@material-ui/core/styles';
 import theme from './theme';
 import {CssBaseline} from "@material-ui/core";
+import {fetchCovidData} from "./reducers/covidData";
 
 const store = configureStore();
 store.dispatch(fetchNationalVotingData);
+store.dispatch(fetchCovidData);
 
 ReactDOM.render(
   <React.StrictMode>

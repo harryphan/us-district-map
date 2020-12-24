@@ -1,5 +1,5 @@
 import React, {Component, PureComponent} from "react";
-import {Box, Button, Container, Typography} from "@material-ui/core";
+import {Box, Button, Container, Link, Typography} from "@material-ui/core";
 import USMapContainer from "../containers/USMapContainer";
 import ReactTooltip from "react-tooltip";
 import Copyright from "./Copyright";
@@ -27,11 +27,15 @@ class Main extends PureComponent{
                 </Box>
                 <Box height={'10vh'} lg={3}>
                     <Typography variant="caption" gutterBottom>
-                        Source code: <a href="https://github.com/harryphan/us-district-map">Github</a>
+                        Source code: <Link href="https://github.com/harryphan/us-district-map">Github</Link>
                         <br/>
-                        Data sources: <a href="https://www.cnn.com/election/2020/results/president?iid=politics_election_national_map">CNN</a>
+                        Data sources: <Link href="https://www.cnn.com/election/2020/results/president?iid=politics_election_national_map">CNN</Link>
                         &nbsp;
-                        <a href="https://www.politico.com/2020-election/results/">Politico</a>
+                        <Link href="https://www.politico.com/2020-election/results/">Politico</Link>
+                        &nbsp;
+                        <Link href="https://covid.cdc.gov/covid-data-tracker/#county-view">
+                           CDC
+                        </Link>
                     </Typography>
                 </Box>
                 <Box height={'5vh'}>

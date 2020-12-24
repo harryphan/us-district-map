@@ -1,7 +1,7 @@
 import {PureComponent} from "react";
 import {FormControl, InputLabel, Select} from "@material-ui/core";
 import mapview_constants from '../constants/mapview_constants';
-const {BASIC,ELECTION_RESULTS_COUNTY} = mapview_constants;
+const {BASIC,ELECTION_RESULTS_COUNTY,COVID} = mapview_constants;
 
 export default class MapViewSelector extends PureComponent{
     render(){
@@ -14,7 +14,8 @@ export default class MapViewSelector extends PureComponent{
                     onChange={changeMapView}
                 >
                     <option value={BASIC}>Basic</option>
-                    <option value={ELECTION_RESULTS_COUNTY}>County Votes</option>
+                    <option value={ELECTION_RESULTS_COUNTY}>County Level Election Results</option>
+                    <option value={COVID}>COVID cases / 100K Residents</option>
                 </Select>
             </FormControl>
         )

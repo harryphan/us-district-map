@@ -1,8 +1,7 @@
 import {Geographies, Geography} from 'react-simple-maps';
 import React, {memo} from 'react';
-import counties from '../data/counties-10m.json'
 
-const AllCounties = ({setTooltip,votingDataContext}) =>{
+const AllCounties = ({counties,setTooltip,votingDataContext}) =>{
     return(
         <Geographies geography={counties}>
             {({ geographies,projection,path }) =>{
