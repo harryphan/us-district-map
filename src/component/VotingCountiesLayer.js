@@ -1,4 +1,4 @@
-import React, { memo} from 'react';
+import React from 'react';
 import { Geography } from 'react-simple-maps';
 
 const VotingCountiesLayer = ({countyBoundary,votingDataContext, focusedStateId, setTooltip}) => {
@@ -41,4 +41,4 @@ const VotingCountiesLayer = ({countyBoundary,votingDataContext, focusedStateId, 
         </>
     )
 }
-export default memo(VotingCountiesLayer);
+export default VotingCountiesLayer;

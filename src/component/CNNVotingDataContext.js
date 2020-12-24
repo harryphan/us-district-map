@@ -1,13 +1,13 @@
 import React from 'react';
 import * as d3 from 'd3';
-import { scaleLinear,scaleLog,scaleRadial } from 'd3-scale';
+import { scaleLinear,scaleLog,scaleSequential } from 'd3-scale';
 
 export default class CNNVotingDataContext {
     constructor(nationalVotingData) {
         this._nationalVotingData = nationalVotingData;
         let sorted=[...nationalVotingData].sort( (a,b) => a.totalVotes - b.totalVotes);
         this.voteOpScale = scaleLinear().domain([sorted[0].totalVotes,sorted[sorted.length-2].totalVotes]).range([0,1]);
-        this.tmpOpScale = scaleLog().domain([10000,4000000]).range([0,1]);
+        this.tmpOpScale = scaleLog().domain([4000,2000000]).range([0,1]);
         this._currentState={};
         this._bidenResult ={};
         this._trumpResult={}

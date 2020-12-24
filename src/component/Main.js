@@ -1,18 +1,13 @@
-import React, {Component, PureComponent} from "react";
+import React, {Component} from "react";
 import {Box, Button, Container, Link, Typography} from "@material-ui/core";
 import USMapContainer from "../containers/USMapContainer";
 import ReactTooltip from "react-tooltip";
 import Copyright from "./Copyright";
 import MapViewSelector from "../containers/MapViewSelector";
 
-class Main extends PureComponent{
+class Main extends Component{
+
     render(){
-        const {tooltip,isLoading}=this.props;
-
-        if(isLoading){
-            return 'Loading';
-        }
-
         return(
             <Container lg={3} height={'100vh'} width={'100%'}>
                 <Box height={'10vh'}>
@@ -23,7 +18,6 @@ class Main extends PureComponent{
                 </Box>
                 <Box lg={3} height={'70vh'} width={'100%'}>
                     <USMapContainer />
-                    <ReactTooltip>{tooltip}</ReactTooltip>
                 </Box>
                 <Box height={'10vh'} lg={3}>
                     <Typography variant="caption" gutterBottom>

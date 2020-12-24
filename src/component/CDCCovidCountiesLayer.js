@@ -1,4 +1,4 @@
-import React, {Component, memo} from 'react';
+import React, {Component} from 'react';
 import {Geographies, Geography} from 'react-simple-maps';
 import { scaleLinear,scaleLog,scaleRadial,scaleQuantile,scaleSequential } from 'd3-scale';
 

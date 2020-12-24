@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React from 'react';
 import {Annotation, Geographies, Marker} from 'react-simple-maps';
 import statesBoundaries from '../data/states-10m.json';
 import allStates from '../data/allstates.json';
@@ -54,4 +54,4 @@ const Labels = () => {
         </Geographies>
     );
 }
-export default memo(Labels);
+export default Labels;

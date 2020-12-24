@@ -3,9 +3,11 @@ import axios from 'axios';
 import xml2js from 'xml2js';
 import allStates from '../data/allstates.json';
 import countyLoader from '../utils/countyLoader';
+import CNNVotingDataContext from "../component/CNNVotingDataContext";
 
 let initialState={
     us:[],
+    dataContext:null,
     isLoadingCounties:false,
     isLoading:false,
 };
@@ -30,6 +32,9 @@ const votingData = (state=initialState, action) =>{
                 if(holder){
                     holder.counties = payload.counties;
                 }
+                break;
+            case 'INIT_VOTING_DATA_CONTEXT':
+                draft.dataContext=new CNNVotingDataContext(state.us);
                 break;
             case 'SET_VOTING_LOADING':
                 draft.isLoading=payload;
@@ -83,6 +88,7 @@ export async function fetchNationalVotingData(dispatch,getState){
         dispatch({type: 'SET_STATE_LEVEL_RESULTS',payload: result});
     });
     dispatch(applyMissingCounties);
+    dispatch({type: 'INIT_VOTING_DATA_CONTEXT'});
     dispatch({type: 'SET_VOTING_LOADING', payload:false});
 }
 

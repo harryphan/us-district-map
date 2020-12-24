@@ -1,4 +1,4 @@
-import React, {memo} from 'react';
+import React from 'react';
 import { Geographies, Geography} from 'react-simple-maps';
 import statesBoundaries from '../data/states-10m.json';
 import allStates from '../data/allstates.json';
@@ -48,4 +48,4 @@ const VotingLayer = ({votingDataContext,focusedStateId, handleStateClick,zoom,se
         </Geographies>
     );
 }
-export default memo(VotingLayer);
+export default VotingLayer;

@@ -2,19 +2,28 @@ import React,{Component} from "react";
 import USMap from '../component/USMap';
 import {connect} from 'react-redux';
 import {setCenter,setZoom,setFocusedState,doZoom,setTooltip} from '../actions/actions';
-import {fetchStateVotingData} from "../reducers/votingData";
+import ReactTooltip from "react-tooltip";
+import { Typography} from "@material-ui/core";
 
 
 class Template extends Component{
   shouldComponentUpdate(nextProps, nextState, nextContext) {
     const focusChanged = this.props.focusedStateId !== nextProps.focusedStateId;
     const mapViewChanged = this.props.mapView !== nextProps.mapView;
-    return focusChanged || mapViewChanged;
+    const isLoadingChanged = this.props.isLoading !== nextProps.isLoading;
+    const tooltipChanged = this.props.tooltip !== nextProps.tooltip;
+    return focusChanged || mapViewChanged || isLoadingChanged || tooltipChanged;
   }
 
   render(){
-    return(
-      <USMap {...this.props} />
+    const {isLoading,tooltip}=this.props;
+    if(isLoading){
+      return <Typography style={{border:'1px black solid',height:'100%', width:'100%'}}>Loading</Typography>;
+    }
+    return(<>
+            <USMap {...this.props} />
+            <ReactTooltip>{tooltip}</ReactTooltip>
+          </>
     )
   }
 }
@@ -25,6 +34,8 @@ const mapStateToProps = state =>{
     zoom,
     center,
     focusedStateId,
+    tooltip:state.mapParams.tooltip,
+    isLoading:state.votingData.isLoading || state.votingData.isLoadingCounties || state.covidData.isLoading,
     isLoadingCounties: state.votingData.isLoadingCounties,
     gaVotingData: state.votingData.ga,
     usCovidData: state.covidData.us,
