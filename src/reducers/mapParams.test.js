@@ -9,10 +9,9 @@ import {
 describe('map params reducer test', () => {
     it('should return the initial state', () =>{
         const expected={
-            center:[-83.43523233606125,
-                32.63933616159129],
-            zoom:4,
-            focusedStateId:13,
+            center:[0,0],
+            zoom:1,
+            focusedStateId:0,
             tooltip:''
         };
         expect(reducer(undefined, {})).toEqual(expected);
@@ -20,8 +19,8 @@ describe('map params reducer test', () => {
     it('should set center with payload', () =>{
         const expected={
             center:[42,37],
-            zoom:4,
-            focusedStateId:13,
+            zoom:1,
+            focusedStateId:0,
             tooltip:''
         };
         const action={type: SET_CENTER,payload:[42,37]};
@@ -29,10 +28,9 @@ describe('map params reducer test', () => {
     });
     it('should set zoom level with payload', () =>{
         const expected={
-            center:[-83.43523233606125,
-                32.63933616159129],
+            center:[0,0],
             zoom:2,
-            focusedStateId:13,
+            focusedStateId:0,
             tooltip:''
         };
         const action={type: SET_ZOOM,payload:2};
@@ -40,9 +38,8 @@ describe('map params reducer test', () => {
     });
     it('should focused state id with payload', () =>{
         const expected={
-            center:[-83.43523233606125,
-                32.63933616159129],
-            zoom:4,
+            center:[0,0],
+            zoom:1,
             focusedStateId:21,
             tooltip:''
         };
@@ -51,10 +48,9 @@ describe('map params reducer test', () => {
     });
     it('should set tooltip with payload', () =>{
         const expected={
-            center:[-83.43523233606125,
-                32.63933616159129],
-            zoom:4,
-            focusedStateId:13,
+            center:[0,0],
+            zoom:1,
+            focusedStateId:0,
             tooltip:'test'
         };
         const action={type: SET_TOOLTIP,payload:'test'};
@@ -62,10 +58,9 @@ describe('map params reducer test', () => {
     });
     it('should do nothing', () =>{
         const expected={
-            center:[-83.43523233606125,
-                32.63933616159129],
-            zoom:4,
-            focusedStateId:13,
+            center:[0,0],
+            zoom:1,
+            focusedStateId:0,
             tooltip:''
         };
         const action={type: 'fadjfla',payload:[{test:'obj'}]};
