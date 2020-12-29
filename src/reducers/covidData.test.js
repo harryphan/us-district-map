@@ -1,5 +1,9 @@
-import reducer from './covidData';
+import reducer, {fetchCovidData} from './covidData';
 import { LOAD_COVID, LOAD_US_COVID} from "../constants/action_constants";
+import axios from 'axios';
+import configureStore from "../configureStore";
+jest.mock('axios');
+
 
 describe('covid data reducer test', () => {
     it('should return the initial state', () =>{
@@ -20,5 +24,32 @@ describe('covid data reducer test', () => {
         const expected={us:[], ma:[],isLoading:false};
         const action={type: 'fadjfla',payload:[{test:'obj'}]};
         expect(reducer(undefined, action)).toEqual(expected);
+    });
+    it('should fetch and load data', async () => {
+        const store = configureStore();
+        const mockCNNData={
+            data: {
+                "lastUpdated": "2020-12-29T07:45:13-05:00",
+                "lastUpdatedStr": "December 29, 2020 at 7:45 a.m. ET",
+                "data": [
+                    {
+                        "fips": "08025",
+                        "state": "Colorado",
+                        "name": "Crowley County",
+                        "cases": 1635,
+                        "deaths": 12,
+                        "estimatedPopulation": 6061,
+                        "deathsPer100Cases": 0.7,
+                        "casesPer100KResidents": 26975.7,
+                        "deathsPer100KResidents": 198,
+                        "coordinates": {"lat": 38.3265917, "lng": -103.7848382}
+                    }
+                ]
+            }
+        };
+        axios.get.mockResolvedValue(mockCNNData);
+        await store.dispatch(fetchCovidData);
+        const actual = store.getState().covidData;
+        expect(actual.us[0]).toBe(mockCNNData.data.data[0]);
     });
 });
