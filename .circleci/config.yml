@@ -9,9 +9,6 @@ jobs:
       - image: cimg/node:15.5.0
     steps:
       - checkout
-      - run:
-          name: Run npm install
-          command: npm install
       - restore_cache:
           key: npm-cache-v1-{{ checksum "package-lock.json" }}
       - run:
