@@ -19,6 +19,9 @@ jobs:
           paths:
             - /home/circleci/.npm
       - run:
+          name: Make test result directory
+          command: mkdir test-results
+      - run:
           name: Run Tests
           command: npm test
       - store_test_results:
