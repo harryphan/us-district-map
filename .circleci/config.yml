@@ -11,7 +11,7 @@ jobs:
       - checkout
       - run:
           name: Update NPM
-          command: sudo npm install -g npm@5
+          command: "sudo npm install -g npm@5"
       - restore_cache:
           key: npm-cache-v1-{{ checksum "package-lock.json" }}
       - run:
