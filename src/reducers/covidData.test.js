@@ -2,10 +2,10 @@ import reducer, {fetchCovidData} from './covidData';
 import { LOAD_COVID, LOAD_US_COVID} from "../constants/action_constants";
 import axios from 'axios';
 import configureStore from "../configureStore";
-jest.mock('axios');
 
 
 describe('covid data reducer test', () => {
+    jest.mock('axios');
     it('should return the initial state', () =>{
         const expected={us:[], ma:[],isLoading:false}
         expect(reducer(undefined, {})).toEqual(expected);
