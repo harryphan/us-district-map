@@ -1,6 +1,6 @@
-import React, {memo} from "react";
-import statesBoundaries from "../data/states-10m.json";
-import {Geographies, Geography} from "react-simple-maps";
+import React from 'react';
+import statesBoundaries from '../data/states-10m.json';
+import {Geographies, Geography} from 'react-simple-maps';
 
 
 const BasicMapLayer = ({setTooltip,handleStateClick}) =>
@@ -38,4 +38,4 @@ const BasicMapLayer = ({setTooltip,handleStateClick}) =>
                 }
             </Geographies>
         ;
-export default memo(BasicMapLayer);
+export default BasicMapLayer;
