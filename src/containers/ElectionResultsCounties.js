@@ -1,8 +1,6 @@
 import {setTooltip} from "../actions/actions";
 import {connect} from "react-redux";
 import AllCounties from "../component/AllCounties";
-import CNNVotingDataContext from "../component/CNNVotingDataContext";
-
 
 const mapStateToProps = (state,ownProps)=>{
     return {
